@@ -8,5 +8,5 @@ RUN ./gradlew build -x test
 
 EXPOSE 8080
 
-# A parte essencial: usar ${PORT:-8080} para aceitar a porta do Vercel
-CMD ["sh", "-c", "java -jar build/libs/*.jar --server.port=${PORT:-8080}"]
+# Ajuste o fallback para 80, que é o padrão do Vercel
+CMD ["sh", "-c", "java -jar build/libs/*.jar --server.port=${PORT:-80}"]
