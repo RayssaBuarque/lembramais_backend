@@ -22,8 +22,7 @@ data class Medicamento(
     @Column(name = "medico_prescritor")
     val medicoPrescritor: String? = null,
 
-    @OneToMany(mappedBy = "medicamentoId", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JsonIgnore // Evita loop infinito no JSON
+    @OneToMany(mappedBy = "medicamentoId", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     val horarios: List<HorarioMedicamento> = emptyList()
 )
 
