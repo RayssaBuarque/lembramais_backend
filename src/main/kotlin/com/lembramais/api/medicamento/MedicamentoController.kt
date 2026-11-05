@@ -56,4 +56,9 @@ class MedicamentoController(
         horarioRepo.save(horario)
         return ResponseEntity.ok(horario)
     }
+
+    @DeleteMapping("/medicamentos/{id}")
+    fun deletarMedicamento(@PathVariable id: Long) {
+        medicamentoRepo.deleteById(id)
+    }
 }

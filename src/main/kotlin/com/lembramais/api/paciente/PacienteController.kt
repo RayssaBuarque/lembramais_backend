@@ -1,6 +1,8 @@
 package com.lembramais.api.paciente
 
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -16,5 +18,10 @@ class PacienteController(private val pacienteRepository: PacienteRepository) {
     @GetMapping
     fun listarPacientes(): List<Paciente> {
         return pacienteRepository.findAll()
+    }
+
+    @DeleteMapping("/pacientes/{id}")
+    fun deletarPaciente(@PathVariable id: Long) {
+        pacienteRepository.deleteById(id)
     }
 }
