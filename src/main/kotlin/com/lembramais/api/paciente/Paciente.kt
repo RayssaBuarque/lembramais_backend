@@ -1,5 +1,7 @@
 package com.lembramais.api.paciente
 
+import jakarta.persistence.AttributeConverter
+import jakarta.persistence.Converter
 import jakarta.persistence.*
 import java.time.LocalDate
 
@@ -24,5 +26,20 @@ data class Paciente(
     val isDependente: Boolean = false,
 
     @Column(name = "convenio_nome")
-    val convenioNome: String? = null
+    val convenioNome: String? = null,
+
+    @Convert(converter = JsonStringConverter::class)
+    @Column(columnDefinition = "JSON")
+    val preferencias: String? = null
 )
+
+// DTO para receber a atualização de preferências do Frontend
+data class PreferenciaRequest(
+    val preferencias: String
+)
+
+@Converter(autoApply = true)
+class JsonStringConverter : AttributeConverter<String?, String?> {
+    override fun convertToDatabaseColumn(attribute: String?): String? = attribute
+    override fun convertToEntityAttribute(dbData: String?): String? = dbData
+}
